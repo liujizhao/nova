@@ -1,11 +1,16 @@
 package com.exper.nova;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -35,7 +40,119 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.nav_view)
     View mNavLayout;
 
+    @BindView(R.id.animation_view_1)
+    ImageView animationView1;
+
+    @BindView(R.id.animation_view_2)
+    ImageView animationView2;
+
+    @BindView(R.id.animation_view_3)
+    ImageView animationView3;
+
+    @BindView(R.id.animation_view_4)
+    ImageView animationView4;
+
+    @BindView(R.id.btn_layout)
+    View btnLayout;
+
     private long mExitTime = 0;
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 10000:
+                    Animation animation4 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_1);
+                    animation4.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            mHandler.sendEmptyMessageDelayed(10001,200);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    animationView4.setAlpha(1.0f);
+                    animationView4.startAnimation(animation4);
+                    break;
+                case 10001:
+                    Animation animation3 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_1);
+                    animation3.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            mHandler.sendEmptyMessageDelayed(10002,200);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    animationView3.setAlpha(1.0f);
+                    animationView3.startAnimation(animation3);
+                    break;
+                case 10002:
+                    Animation animation2 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_1);
+                    animation2.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            mHandler.sendEmptyMessageDelayed(10003,200);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    animationView2.setAlpha(1.0f);
+                    animationView2.startAnimation(animation2);
+                    break;
+                case 10003:
+                    Animation animation1 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.alpha_anim);
+                    animationView1.setAlpha(1.0f);
+                    animation1.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+//                            Animation animation11 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.alpha_anim);
+//                            btnLayout.setAlpha(1.0f);
+//                            btnLayout.startAnimation(animation11);
+
+                            Animation animation12 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.alpha_anim);
+                            selfHDBtn.setAlpha(1.0f);
+                            selfHDBtn.startAnimation(animation12);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    animationView1.startAnimation(animation1);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected int attachLayoutRes() {
@@ -57,6 +174,8 @@ public class MainActivity extends BaseActivity {
                 selfHDBtn.setVisibility(View.VISIBLE);
                 paramBtn.setVisibility(View.VISIBLE);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
+                mHandler.sendEmptyMessage(10000);
             }
         },3000);
     }
