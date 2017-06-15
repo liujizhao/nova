@@ -4,37 +4,76 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:background="@drawable/menu_bg"
     android:layout_gravity="end">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_1"
+        <ImageView
+            android:id="@+id/menu_item_1"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="xxxxxxxxxxxx"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/renxiangmoshi"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="66dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="100dp" />
 
-        <TextView
-            android:id="@+id/text_2"
+        <ImageView
+            android:id="@+id/menu_item_2"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="xxxxxxxxxxxx"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/guangxuebianjiao"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="66dp"
+            android:layout_marginStart="66dp"
+            android:layout_below="@+id/menu_item_1"
+            android:layout_marginTop="50dp"/>
 
-        <TextView
-            android:id="@+id/text_3"
+        <ImageView
+            android:id="@+id/menu_item_3"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="xxxxxxxxxxxx"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/xianpaizhao"
+            android:layout_below="@+id/menu_item_2"
+            android:layout_marginLeft="66dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="10dp"/>
 
-        <TextView
-            android:id="@+id/text_4"
+        <ImageView
+            android:id="@+id/menu_item_4"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="xxxxxxxxxxxx"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/waiguan"
+            android:layout_below="@+id/menu_item_3"
+            android:layout_marginLeft="66dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="25dp"/>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/menu_item_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/emui"
+            android:layout_below="@+id/menu_item_4"
+            android:layout_marginLeft="66dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="40dp"/>
+
+        <ImageView
+            android:id="@+id/menu_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"/>
+
+    </RelativeLayout>
 
 </android.support.design.widget.NavigationView>

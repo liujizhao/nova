@@ -183,7 +183,7 @@ public class MainActivity extends BaseActivity {
         },3000);
     }
 
-    @OnClick({R.id.self_hd_btn,R.id.param_btn,R.id.text_1,R.id.text_2,R.id.text_3,R.id.text_4})
+    @OnClick({R.id.self_hd_btn,R.id.param_btn})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.self_hd_btn:
@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.text_1,R.id.text_2,R.id.text_3,R.id.text_4})
+    @OnClick({R.id.menu_item_1,R.id.menu_item_2,R.id.menu_item_3,R.id.menu_item_4,R.id.menu_item_5,R.id.menu_close})
     public void drawerClick(View view){
         view.post(new Runnable() {
             @Override
@@ -204,17 +204,23 @@ public class MainActivity extends BaseActivity {
             }
         });
         switch (view.getId()){
-            case R.id.text_1:
+            case R.id.menu_item_1:
                 replaceFragment(R.id.content_frame, new HDSelfFragment(), "self");
                 break;
-            case R.id.text_2:
-                replaceFragment(R.id.content_frame, new ParamFragment(), "param");
+            case R.id.menu_item_2:
+                ToastUtils.showToast("光学变焦");
                 break;
-            case R.id.text_3:
-                replaceFragment(R.id.content_frame, new HDSelfFragment(), "self");
+            case R.id.menu_item_3:
+                ToastUtils.showToast("先拍照 后对焦");
                 break;
-            case R.id.text_4:
-                replaceFragment(R.id.content_frame, new ParamFragment(), "param");
+            case R.id.menu_item_4:
+                ToastUtils.showToast("时尚设计");
+                break;
+            case R.id.menu_item_5:
+                ToastUtils.showToast("特色功能");
+                break;
+            case R.id.menu_close:
+                closeDrawer();
                 break;
         }
     }
@@ -230,7 +236,7 @@ public class MainActivity extends BaseActivity {
         }
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         ViewGroup.LayoutParams layoutParams = mNavLayout.getLayoutParams();
-        layoutParams.width = Tools.getWindowWidth(this) / 2;
+        layoutParams.width = 779;
     }
 
     @Override

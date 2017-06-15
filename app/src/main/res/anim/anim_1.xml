@@ -17,7 +17,7 @@
         android:fromDegrees="0"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toDegrees="30" />
+        android:toDegrees="60" />
 
     <alpha
         android:fromAlpha="0.0"
