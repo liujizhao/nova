@@ -2,6 +2,8 @@ package com.exper.nova;
 
 import com.exper.nova.base.BaseActivity;
 
+import butterknife.ButterKnife;
+
 public class MainActivity extends BaseActivity {
 
     @Override
@@ -11,7 +13,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-
     }
 
     @Override
