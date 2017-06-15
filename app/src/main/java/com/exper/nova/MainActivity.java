@@ -124,7 +124,7 @@ public class MainActivity extends BaseActivity {
                     animationView2.startAnimation(animation2);
                     break;
                 case 10003:
-                    Animation animation1 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.alpha_anim);
+                    Animation animation1 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_2);
                     animationView1.setAlpha(1.0f);
                     animation1.setAnimationListener(new Animation.AnimationListener() {
                         @Override
@@ -141,6 +141,9 @@ public class MainActivity extends BaseActivity {
                             Animation animation12 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.alpha_anim);
                             selfHDBtn.setAlpha(1.0f);
                             selfHDBtn.startAnimation(animation12);
+
+                            paramBtn.setAlpha(1.0f);
+                            paramBtn.startAnimation(animation12);
                         }
 
                         @Override
