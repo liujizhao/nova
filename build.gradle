@@ -25,7 +25,7 @@ task clean(type: Delete) {
 
 ext {
 
-    butterKnifeVersion = '8.5.1'
+    butterKnifeVersion = '8.0.1'
     compileSdk = 23
     minSdk = 15
     targetSdk = 25

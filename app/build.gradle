@@ -21,5 +21,7 @@ android {
 
 dependencies {
     compile "com.android.support:appcompat-v7:${rootProject.ext.support}"
+    compile "com.android.support:design:${rootProject.ext.support}"
     compile "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
 }
