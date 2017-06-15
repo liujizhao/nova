@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -19,17 +20,33 @@ import com.exper.nova.home.HDSelfFragment;
 import com.exper.nova.home.ParamFragment;
 import com.exper.nova.util.ToastUtils;
 import com.exper.nova.util.Tools;
+import com.exper.nova.widget.RoToolsBar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickListener {
 
     @BindView(R.id.splash_img)
     ImageView splashView;
 
     @BindView(R.id.self_hd_btn)
     ImageView selfHDBtn;
+
+    @BindView(R.id.home_double_curl)
+    ImageView mHomeDouble;
+
+    @BindView(R.id.home_fashion)
+    ImageView mHomeFashion;
+
+    @BindView(R.id.home_emui)
+    ImageView mHomeEmui;
+
+    @BindView(R.id.ro_tools_bar)
+    RoToolsBar mRoToolsBar;
+
+    @BindView(R.id.logo_image)
+    ImageView mLogoImageTxt;
 
     @BindView(R.id.param_btn)
     ImageView paramBtn;
@@ -142,6 +159,21 @@ public class MainActivity extends BaseActivity {
                             selfHDBtn.setAlpha(1.0f);
                             selfHDBtn.startAnimation(animation12);
 
+                            mHomeDouble.setAlpha(1.0f);
+                            mHomeDouble.startAnimation(animation12);
+
+                            mHomeFashion.setAlpha(1.0f);
+                            mHomeFashion.startAnimation(animation12);
+
+                            mHomeEmui.setAlpha(1.0f);
+                            mHomeEmui.startAnimation(animation12);
+
+                            mRoToolsBar.setAlpha(1.0f);
+                            mRoToolsBar.startAnimation(animation12);
+
+                            mLogoImageTxt.setAlpha(1.0f);
+                            mLogoImageTxt.startAnimation(animation12);
+
                             paramBtn.setAlpha(1.0f);
                             paramBtn.startAnimation(animation12);
                         }
@@ -166,6 +198,17 @@ public class MainActivity extends BaseActivity {
     protected void initViews() {
         ToastUtils.init(this);
         _initDrawerLayout(mDrawerLayout);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mRoToolsBar.setOnBtnClickListener(this);
+        mRoToolsBar.setLogo(R.drawable.home_title_logo);
+        mRoToolsBar.setMenu(R.drawable.home_title_menu);
+        mRoToolsBar.setBackImageVisible(View.GONE);
+        mRoToolsBar.setLogoImageVisible(View.VISIBLE);
     }
 
     @Override
@@ -219,9 +262,6 @@ public class MainActivity extends BaseActivity {
             case R.id.menu_item_5:
                 ToastUtils.showToast("特色功能");
                 break;
-            case R.id.menu_close:
-                closeDrawer();
-                break;
         }
     }
 
@@ -263,10 +303,33 @@ public class MainActivity extends BaseActivity {
     }
 
     public void openDrawer(){
-        mDrawerLayout.openDrawer(GravityCompat.END);
+        if(!mDrawerLayout.isDrawerOpen(GravityCompat.END))
+            mDrawerLayout.openDrawer(GravityCompat.END);
+
+        ToastUtils.showToast("open");
+        Log.e("TAG","open");
     }
 
     public void closeDrawer(){
-        mDrawerLayout.closeDrawer(GravityCompat.END);
+        if(mDrawerLayout.isDrawerOpen(GravityCompat.END))
+            mDrawerLayout.closeDrawer(GravityCompat.END);
+
+        ToastUtils.showToast("close");
+        Log.e("TAG","close");
+    }
+
+    @Override
+    public void onBackPress() {
+
+    }
+
+    @Override
+    public void onMenuPress() {
+        openDrawer();
+    }
+
+    @Override
+    public void onLogoPress() {
+
     }
 }
