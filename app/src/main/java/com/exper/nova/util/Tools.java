@@ -5,9 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
@@ -102,5 +106,56 @@ public class Tools {
             intent.setComponent(cn);
             context.startActivity(intent);
         }
+    }
+
+    /**
+     * 获取本地视频的第一帧
+     *
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static Bitmap getLocalVideoThumbnail(Context context,Uri uri) {
+        Bitmap bitmap = null;
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            retriever.setDataSource(context,uri);
+            bitmap = retriever.getFrameAtTime();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } finally {
+            retriever.release();
+        }
+        return bitmap;
+    }
+
+    /**
+     * 反射获取本地视频的第一帧
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static Bitmap getVideoFirstFrame(Context context, Uri uri) {
+        Bitmap bitmap = null;
+        String className = "android.media.MediaMetadataRetriever";
+        Object objectMediaMetadataRetriever = null;
+        Method release = null;
+        try {
+            //反射获取视频第一帧
+            objectMediaMetadataRetriever = Class.forName(className).newInstance();
+            Method setDataSourceMethod = Class.forName(className).getMethod("setDataSource", Context.class, Uri.class);
+            setDataSourceMethod.invoke(objectMediaMetadataRetriever, context, uri);
+            Method getFrameAtTimeMethod = Class.forName(className).getMethod("getFrameAtTime");
+            bitmap = (Bitmap) getFrameAtTimeMethod.invoke(objectMediaMetadataRetriever);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                release.invoke(objectMediaMetadataRetriever);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return bitmap;
     }
 }

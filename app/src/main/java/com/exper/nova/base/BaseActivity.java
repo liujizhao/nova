@@ -49,7 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param containerViewId
      * @param fragment
      */
-    protected void addFragment(int containerViewId, Fragment fragment) {
+    public void addFragment(int containerViewId, Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(containerViewId, fragment);
         fragmentTransaction.commit();
@@ -61,7 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param containerViewId
      * @param fragment
      */
-    protected void addFragment(int containerViewId, Fragment fragment, String tag) {
+    public void addFragment(int containerViewId, Fragment fragment, String tag) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         // 设置tag，不然下面 findFragmentByTag(tag)找不到
         fragmentTransaction.add(containerViewId, fragment, tag);
@@ -75,7 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param containerViewId
      * @param fragment
      */
-    protected void replaceFragment(int containerViewId, Fragment fragment) {
+    public void replaceFragment(int containerViewId, Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(containerViewId, fragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -89,7 +89,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param containerViewId
      * @param fragment
      */
-    protected void replaceFragment(int containerViewId, Fragment fragment, String tag) {
+    public void replaceFragment(int containerViewId, Fragment fragment, String tag) {
         if (getSupportFragmentManager().findFragmentByTag(tag) == null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             // 设置tag
@@ -101,6 +101,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             // 存在则弹出在它上面的所有fragment，并显示对应fragment
             getSupportFragmentManager().popBackStack(tag, 0);
+        }
+    }
+
+    public void clearAllFragment(){
+        // 获取堆栈里有几个
+        final int stackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+        for (int i = 1; i <= stackEntryCount; i++){
+            getSupportFragmentManager().popBackStack();
         }
     }
 }

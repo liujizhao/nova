@@ -36,7 +36,6 @@ public class RoToolsBar extends RelativeLayout implements View.OnClickListener{
     }
 
     private void initViews() {
-
         LayoutInflater.from(mContext).inflate(R.layout.toolsbar, this);
         mBackBtn = (ImageView) findViewById(R.id.btn_back);
         mMenuBtn = (ImageView) findViewById(R.id.btn_menu);

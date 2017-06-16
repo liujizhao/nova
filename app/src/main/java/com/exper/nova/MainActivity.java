@@ -1,25 +1,21 @@
 package com.exper.nova;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.exper.nova.base.BaseActivity;
-import com.exper.nova.home.HDSelfFragment;
+import com.exper.nova.zipai.HDSelfFragment;
 import com.exper.nova.home.ParamFragment;
 import com.exper.nova.util.ToastUtils;
-import com.exper.nova.util.Tools;
 import com.exper.nova.widget.RoToolsBar;
 
 import butterknife.BindView;
@@ -197,7 +193,8 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
     @Override
     protected void initViews() {
         ToastUtils.init(this);
-        _initDrawerLayout(mDrawerLayout);
+        ViewGroup.LayoutParams layoutParams = mNavLayout.getLayoutParams();
+        layoutParams.width = 779;
     }
 
 
@@ -213,14 +210,10 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
 
     @Override
     protected void updateViews() {
-        splashView.postDelayed(new Runnable() {
+        mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 splashView.setVisibility(View.GONE);
-                selfHDBtn.setVisibility(View.VISIBLE);
-                paramBtn.setVisibility(View.VISIBLE);
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-
                 mHandler.sendEmptyMessage(10000);
             }
         },3000);
@@ -265,20 +258,6 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         }
     }
 
-    private void _initDrawerLayout(DrawerLayout drawerLayout) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
-            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
-            //将侧边栏顶部延伸至status bar
-            drawerLayout.setFitsSystemWindows(true);
-            //将主页面顶部延伸至status bar
-            drawerLayout.setClipToPadding(false);
-        }
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        ViewGroup.LayoutParams layoutParams = mNavLayout.getLayoutParams();
-        layoutParams.width = 779;
-    }
-
     @Override
     public void onBackPressed() {
         // 获取堆栈里有几个
@@ -305,17 +284,11 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
     public void openDrawer(){
         if(!mDrawerLayout.isDrawerOpen(GravityCompat.END))
             mDrawerLayout.openDrawer(GravityCompat.END);
-
-        ToastUtils.showToast("open");
-        Log.e("TAG","open");
     }
 
     public void closeDrawer(){
         if(mDrawerLayout.isDrawerOpen(GravityCompat.END))
             mDrawerLayout.closeDrawer(GravityCompat.END);
-
-        ToastUtils.showToast("close");
-        Log.e("TAG","close");
     }
 
     @Override
