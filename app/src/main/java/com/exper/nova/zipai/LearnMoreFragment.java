@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -62,6 +63,9 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
     @BindView(R.id.location_view)
     View locationView;
 
+    @BindView(R.id.des_view)
+    ImageView mDesView;
+
     private ViewPagerAdapter mViewPagerAdapter;
     private List<View> mViews = new ArrayList<>();
     private int[] mImageIds = new int[]{
@@ -83,15 +87,13 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
                 mPlaceHolder.setVisibility(View.GONE);
                 mVideoView.start();
             }
-        },300);
+        },500);
         mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                mPlaceHolder.setImageResource(R.drawable.learn_more_small);
+                mPlaceHolder.setBackgroundResource(R.drawable.learn_more_small);
                 mPlaceHolder.setVisibility(View.VISIBLE);
-                mVideoView.setVisibility(View.GONE);
-                int[] start_location = new int[]{mPlaceHolder.getLeft(), mPlaceHolder.getTop()};
-                setAnim(mPlaceHolder,start_location);
+                setAnim(mPlaceHolder);
                 pagerLayout.setVisibility(View.VISIBLE);
             }
         });
@@ -103,9 +105,9 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
             imageView.setLayoutParams(new LinearLayout.LayoutParams(10,10));
             mTips[i] = imageView;
             if(i == 0){
-                mTips[i].setBackgroundResource(R.drawable.indicator_selected);
+                mTips[i].setBackgroundResource(R.drawable.selected);
             }else{
-                mTips[i].setBackgroundResource(R.drawable.indicator_normal);
+                mTips[i].setBackgroundResource(R.drawable.normal);
             }
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -171,7 +173,17 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int position) {
-        setImageBackground(position % mViews.size());
+        int current = position % mViews.size();
+        setImageBackground(current);
+        if(current == 0){
+            mDesView.setImageResource(R.drawable.learn_more_txt_1);
+        }else if(current == 1){
+            mDesView.setImageResource(R.drawable.learn_more_txt_2);
+        }else if(current == 2){
+            mDesView.setImageResource(R.drawable.learn_more_txt_3);
+        }else if(current == 3){
+            mDesView.setImageResource(R.drawable.learn_more_txt_4);
+        }
     }
 
     @Override
@@ -182,36 +194,26 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
     private void setImageBackground(int selectItems){
         for(int i = 0; i< mTips.length; i++){
             if(i == selectItems){
-                mTips[i].setBackgroundResource(R.drawable.indicator_selected);
+                mTips[i].setBackgroundResource(R.drawable.selected);
             }else{
-                mTips[i].setBackgroundResource(R.drawable.indicator_normal);
+                mTips[i].setBackgroundResource(R.drawable.normal);
             }
         }
     }
 
-    private void setAnim(final View v, int[] start_location) {
-        int[] end_location = new int[]{locationView.getLeft(), locationView.getTop()};// 这是用来存储动画结束位置的X、Y坐标
+    private void setAnim(final View v) {
 
-        // 计算位移
-        int endX = 0 - start_location[0] + 40;// 动画位移的X坐标
-        int endY = end_location[1] - start_location[1];// 动画位移的y坐标
+        Rect rect = new Rect();
+        locationView.getGlobalVisibleRect(rect);
 
-        TranslateAnimation translateAnimationY = new TranslateAnimation(0, 120,
-                0, 500);
-        translateAnimationY.setInterpolator(new AccelerateInterpolator());
-        translateAnimationY.setRepeatCount(0);// 动画重复执行的次数
-        translateAnimationY.setFillAfter(false);
-
-        ScaleAnimation scaleAnimation = new ScaleAnimation(0,120,0,500);
-        scaleAnimation.initialize(462,776,1080,1920);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 462.0f / 1080.0f, 1.0f, 776.0f / 1920.0f,Animation.RELATIVE_TO_PARENT, 130 / 1080.0f, Animation.RELATIVE_TO_PARENT, 1000 / 1920.0f);
         scaleAnimation.setInterpolator(new AccelerateInterpolator());
         scaleAnimation.setFillAfter(true);
-        translateAnimationY.setRepeatCount(0);
+        scaleAnimation.setRepeatCount(0);
 
         AnimationSet set = new AnimationSet(false);
         set.setFillAfter(false);
-        set.addAnimation(translateAnimationY);
-//        set.addAnimation(scaleAnimation);
+        set.addAnimation(scaleAnimation);
         set.setDuration(1000);// 动画的执行时间
         v.startAnimation(set);
         // 动画监听事件
@@ -230,7 +232,7 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
             // 动画的结束
             @Override
             public void onAnimationEnd(Animation animation) {
-                v.setVisibility(View.GONE);
+                mPlaceHolder.setVisibility(View.GONE);
             }
         });
 

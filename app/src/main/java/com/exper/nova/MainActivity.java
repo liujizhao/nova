@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.exper.nova.base.BaseActivity;
@@ -53,6 +54,9 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
     @BindView(R.id.nav_view)
     View mNavLayout;
 
+    @BindView(R.id.home_sub_menu_layout)
+    LinearLayout mSubMenuLayout;
+
     @BindView(R.id.animation_view_1)
     ImageView animationView1;
 
@@ -64,6 +68,9 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
 
     @BindView(R.id.animation_view_4)
     ImageView animationView4;
+
+    @BindView(R.id.mainze_view)
+    ImageView mianZeView;
 
     @BindView(R.id.btn_layout)
     View btnLayout;
@@ -121,7 +128,7 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
                     animation2.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
-                            mHandler.sendEmptyMessageDelayed(10003,200);
+                            mHandler.sendEmptyMessageDelayed(10003,100);
                         }
 
                         @Override
@@ -147,10 +154,6 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-//                            Animation animation11 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.alpha_anim);
-//                            btnLayout.setAlpha(1.0f);
-//                            btnLayout.startAnimation(animation11);
-
                             Animation animation12 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.alpha_anim);
                             selfHDBtn.setAlpha(1.0f);
                             selfHDBtn.startAnimation(animation12);
@@ -172,6 +175,9 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
 
                             paramBtn.setAlpha(1.0f);
                             paramBtn.startAnimation(animation12);
+
+                            mianZeView.setAlpha(1.0f);
+                            mianZeView.startAnimation(animation12);
                         }
 
                         @Override
@@ -219,7 +225,7 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         },3000);
     }
 
-    @OnClick({R.id.self_hd_btn,R.id.param_btn})
+    @OnClick({R.id.self_hd_btn,R.id.param_btn , R.id.home_double_curl})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.self_hd_btn:
@@ -228,6 +234,39 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
             case R.id.param_btn:
                 replaceFragment(R.id.content_frame, new ParamFragment(),"param");
                 break;
+            case R.id.home_double_curl:
+                showSubMenu();
+                break;
+        }
+    }
+
+    boolean isSubMenuShown = false;
+
+    private void showSubMenu() {
+        if(!isSubMenuShown) {
+
+
+            selfHDBtn.setVisibility(View.INVISIBLE);
+            mHomeEmui.setVisibility(View.INVISIBLE);
+            mHomeFashion.setVisibility(View.INVISIBLE);
+
+            selfHDBtn.setAlpha(0.0f);
+            mHomeEmui.setAlpha(0.0f);
+            mHomeFashion.setAlpha(0.0f);
+
+            mSubMenuLayout.setVisibility(View.VISIBLE);
+            isSubMenuShown = true;
+        }else{
+            selfHDBtn.setVisibility(View.VISIBLE);
+            mHomeEmui.setVisibility(View.VISIBLE);
+            mHomeFashion.setVisibility(View.VISIBLE);
+
+            selfHDBtn.setAlpha(1.0f);
+            mHomeEmui.setAlpha(1.0f);
+            mHomeFashion.setAlpha(1.0f);
+
+            mSubMenuLayout.setVisibility(View.GONE);
+            isSubMenuShown = false;
         }
     }
 

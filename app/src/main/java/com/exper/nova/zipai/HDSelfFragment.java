@@ -65,9 +65,9 @@ public class HDSelfFragment extends BaseFragment implements ViewPager.OnPageChan
             imageView.setLayoutParams(new LinearLayout.LayoutParams(10,10));
             mTips[i] = imageView;
             if(i == 0){
-                mTips[i].setBackgroundResource(R.drawable.indicator_selected);
+                mTips[i].setBackgroundResource(R.drawable.selected);
             }else{
-                mTips[i].setBackgroundResource(R.drawable.indicator_normal);
+                mTips[i].setBackgroundResource(R.drawable.normal);
             }
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -88,7 +88,7 @@ public class HDSelfFragment extends BaseFragment implements ViewPager.OnPageChan
         for (int ids : mImageIds){
             ImageView imageView = new ImageView(getActivity());
             imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            imageView.setImageResource(ids);
+            imageView.setBackgroundResource(ids);
             mViews.add(imageView);
         }
     }
@@ -110,9 +110,9 @@ public class HDSelfFragment extends BaseFragment implements ViewPager.OnPageChan
     private void setImageBackground(int selectItems){
         for(int i = 0; i< mTips.length; i++){
             if(i == selectItems){
-                mTips[i].setBackgroundResource(R.drawable.indicator_selected);
+                mTips[i].setBackgroundResource(R.drawable.selected);
             }else{
-                mTips[i].setBackgroundResource(R.drawable.indicator_normal);
+                mTips[i].setBackgroundResource(R.drawable.normal);
             }
         }
     }

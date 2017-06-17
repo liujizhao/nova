@@ -5,7 +5,7 @@
     android:interpolator="@android:anim/accelerate_interpolator">
 
     <scale
-        android:duration="1000"
+        android:duration="1500"
         android:fromXScale="1.5"
         android:fromYScale="1.5"
         android:pivotX="50%"
@@ -13,14 +13,14 @@
         android:toXScale="1.0"
         android:toYScale="1.0" />
     <rotate
-        android:duration="1000"
-        android:fromDegrees="0"
+        android:duration="1500"
+        android:fromDegrees="-100"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toDegrees="60" />
+        android:toDegrees="0" />
 
     <alpha
         android:fromAlpha="0.0"
         android:toAlpha="1.0"
-        android:duration="1000"  />
+        android:duration="1500"  />
 </set>

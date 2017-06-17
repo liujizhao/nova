@@ -14,12 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/learn_more_bg"
-        android:visibility="gone">
+        android:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:gravity="center_horizontal|center"
             android:orientation="vertical">
 
@@ -29,40 +29,51 @@
                 android:src="@drawable/learn_more_title"/>
 
            <RelativeLayout
+               android:id="@+id/view_1"
                android:layout_width="match_parent"
-               android:layout_height="wrap_content">
+               android:layout_height="wrap_content"
+               android:layout_marginTop="20dp">
 
                <android.support.v4.view.ViewPager
                    android:id="@+id/viewpager"
                    android:layout_width="match_parent"
-                   android:layout_height="300dp"
-                   android:layout_marginTop="30dp"
-                   android:layout_marginBottom="20dp"/>
+                   android:layout_height="260dp"/>
 
                <ImageView
                    android:id="@+id/location_view"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:src="@drawable/learn_more_small"
-                   android:layout_marginTop="51dp"
-                   android:layout_marginLeft="23dp"/>
+                   android:layout_marginLeft="23dp"
+                   android:visibility="invisible"/>
 
            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/des_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/learn_more_txt_1"
+                android:layout_below="@+id/view_1"
+                android:layout_marginTop="10dp"/>
 
             <LinearLayout
                 android:id="@+id/indicatorLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginTop="50dp"
+                android:background="@drawable/indicator_bg"/>
 
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/learn_more_back"/>
+                android:src="@drawable/learn_more_back"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"/>
 
         </LinearLayout>
 
