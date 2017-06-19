@@ -14,10 +14,16 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.exper.nova.base.BaseActivity;
-import com.exper.nova.zipai.HDSelfFragment;
-import com.exper.nova.home.ParamFragment;
+import com.exper.nova.fragment.BianJiaoFragment;
+import com.exper.nova.fragment.DuiJiaoFragment;
+import com.exper.nova.fragment.EmuiFragment;
+import com.exper.nova.fragment.FashionFragment;
+import com.exper.nova.fragment.HDSelfFragment;
+import com.exper.nova.fragment.ParamFragment;
 import com.exper.nova.util.ToastUtils;
 import com.exper.nova.widget.RoToolsBar;
+import com.github.florent37.viewanimator.AnimationListener;
+import com.github.florent37.viewanimator.ViewAnimator;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -201,8 +207,8 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         ToastUtils.init(this);
         ViewGroup.LayoutParams layoutParams = mNavLayout.getLayoutParams();
         layoutParams.width = 779;
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
-
 
     @Override
     protected void onResume() {
@@ -225,8 +231,11 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         },3000);
     }
 
-    @OnClick({R.id.self_hd_btn,R.id.param_btn , R.id.home_double_curl})
+    @OnClick({R.id.self_hd_btn,R.id.param_btn , R.id.home_double_curl, R.id.home_fashion, R.id.home_emui,R.id.home_sub_menu_biaojiao,R.id.home_sub_menu_duijiao})
     public void onClick(View view){
+        if (isAnimating) {
+            return ;
+        }
         switch (view.getId()){
             case R.id.self_hd_btn:
                 replaceFragment(R.id.content_frame, new HDSelfFragment(),"self");
@@ -234,44 +243,108 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
             case R.id.param_btn:
                 replaceFragment(R.id.content_frame, new ParamFragment(),"param");
                 break;
+            case R.id.home_fashion:
+                replaceFragment(R.id.content_frame, new FashionFragment(),"fashion");
+                break;
+            case R.id.home_emui:
+                replaceFragment(R.id.content_frame, new EmuiFragment(), "emui");
+                break;
             case R.id.home_double_curl:
                 showSubMenu();
+                break;
+            case R.id.home_sub_menu_biaojiao:
+                replaceFragment(R.id.content_frame, new BianJiaoFragment(), "bianjiao");
+                break;
+            case R.id.home_sub_menu_duijiao:
+                replaceFragment(R.id.content_frame, new DuiJiaoFragment(), "duijiao");
                 break;
         }
     }
 
     boolean isSubMenuShown = false;
+    boolean isAnimating = false;
 
     private void showSubMenu() {
         if(!isSubMenuShown) {
-
-
-            selfHDBtn.setVisibility(View.INVISIBLE);
-            mHomeEmui.setVisibility(View.INVISIBLE);
-            mHomeFashion.setVisibility(View.INVISIBLE);
-
-            selfHDBtn.setAlpha(0.0f);
-            mHomeEmui.setAlpha(0.0f);
-            mHomeFashion.setAlpha(0.0f);
-
             mSubMenuLayout.setVisibility(View.VISIBLE);
+            isAnimating = true;
+            ViewAnimator
+                    .animate(selfHDBtn)
+                    .translationY(0, 40)
+                    .alpha(1,0)
+                    .duration(250)
+                    .andAnimate(mHomeEmui)
+                    .translationY(0, 40)
+                    .alpha(1,0)
+                    .duration(250)
+                    .andAnimate(mHomeFashion)
+                    .translationY(0, 40)
+                    .alpha(1,0)
+                    .duration(250)
+                    .thenAnimate(mSubMenuLayout)
+                    .translationY(40,0)
+                    .alpha(0,1)
+                    .duration(250)
+                    .onStop(new AnimationListener.Stop() {
+                        @Override
+                        public void onStop() {
+                            isAnimating = false;
+                            selfHDBtn.setVisibility(View.INVISIBLE);
+                            selfHDBtn.setEnabled(false);
+                            mHomeEmui.setVisibility(View.INVISIBLE);
+                            mHomeEmui.setEnabled(false);
+                            mHomeFashion.setVisibility(View.INVISIBLE);
+                            mHomeFashion.setEnabled(false);
+                            mSubMenuLayout.setVisibility(View.VISIBLE);
+                            mSubMenuLayout.setAlpha(1.0f);
+                        }
+                    })
+                    .start();
             isSubMenuShown = true;
         }else{
-            selfHDBtn.setVisibility(View.VISIBLE);
-            mHomeEmui.setVisibility(View.VISIBLE);
-            mHomeFashion.setVisibility(View.VISIBLE);
+            isAnimating = true;
+            ViewAnimator.animate(mSubMenuLayout)
+                    .translationY(0, 40)
+                    .alpha(1, 0)
+                    .duration(250)
+                    .thenAnimate(selfHDBtn)
+                    .translationY(40, 0)
+                    .alpha(0, 1)
+                    .duration(250)
+                    .andAnimate(mHomeEmui)
+                    .translationY(40, 0)
+                    .alpha(0, 1)
+                    .duration(250)
+                    .andAnimate(mHomeFashion)
+                    .translationY(40, 0)
+                    .alpha(0, 1)
+                    .duration(250)
+                    .onStop(new AnimationListener.Stop() {
+                        @Override
+                        public void onStop() {
+                            isAnimating = false;
+                            mSubMenuLayout.setAlpha(0f);
+                            mSubMenuLayout.setVisibility(View.GONE);
 
-            selfHDBtn.setAlpha(1.0f);
-            mHomeEmui.setAlpha(1.0f);
-            mHomeFashion.setAlpha(1.0f);
+                            selfHDBtn.setVisibility(View.VISIBLE);
+                            selfHDBtn.setEnabled(true);
+                            mHomeEmui.setVisibility(View.VISIBLE);
+                            mHomeEmui.setEnabled(true);
+                            mHomeFashion.setVisibility(View.VISIBLE);
+                            mHomeFashion.setEnabled(true);
+                        }
+                    })
+                    .start();
 
-            mSubMenuLayout.setVisibility(View.GONE);
             isSubMenuShown = false;
         }
     }
 
     @OnClick({R.id.menu_item_1,R.id.menu_item_2,R.id.menu_item_3,R.id.menu_item_4,R.id.menu_item_5,R.id.menu_close})
     public void drawerClick(View view){
+        if (isAnimating) {
+            return;
+        }
         view.post(new Runnable() {
             @Override
             public void run() {
@@ -283,16 +356,16 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
                 replaceFragment(R.id.content_frame, new HDSelfFragment(), "self");
                 break;
             case R.id.menu_item_2:
-                ToastUtils.showToast("光学变焦");
+                replaceFragment(R.id.content_frame, new BianJiaoFragment(), "bianjiao");
                 break;
             case R.id.menu_item_3:
-                ToastUtils.showToast("先拍照 后对焦");
+                replaceFragment(R.id.content_frame, new BianJiaoFragment(), "duijiao");
                 break;
             case R.id.menu_item_4:
-                ToastUtils.showToast("时尚设计");
+                replaceFragment(R.id.content_frame, new FashionFragment(), "fashion");
                 break;
             case R.id.menu_item_5:
-                ToastUtils.showToast("特色功能");
+                replaceFragment(R.id.content_frame, new EmuiFragment(), "emui");
                 break;
         }
     }

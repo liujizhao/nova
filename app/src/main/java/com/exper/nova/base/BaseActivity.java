@@ -1,5 +1,6 @@
 package com.exper.nova.base;
 
+import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -38,9 +39,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        hideBottomUIMenu();
         super.onCreate(savedInstanceState);
         setContentView(attachLayoutRes());
-        hideBottomUIMenu();
         ButterKnife.bind(this);
         initViews();
         updateViews();
@@ -130,5 +131,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         for (int i = 1; i <= stackEntryCount; i++){
             getSupportFragmentManager().popBackStack();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        hideBottomUIMenu();
+        super.onResume();
     }
 }

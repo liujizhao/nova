@@ -4,12 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.exper.nova.R;
 
 import butterknife.ButterKnife;
 
@@ -21,7 +18,7 @@ public abstract class BaseFragment extends Fragment{
 
     protected Context mContext;
     //缓存Fragment view
-    private View mRootView;
+    public View mRootView;
     private boolean mIsMulti = false;
 
     /**
@@ -46,11 +43,17 @@ public abstract class BaseFragment extends Fragment{
         mContext = getActivity();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(attachLayoutRes(), null);
+            mRootView.setClickable(true);
             ButterKnife.bind(this, mRootView);
             initViews();
         }

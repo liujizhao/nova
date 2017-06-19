@@ -22,9 +22,10 @@ public class PreviewVideoView extends VideoView {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int w = MeasureSpec.getSize(widthMeasureSpec);
-        setMeasuredDimension(w, (int) (w / 0.56f));
-    }
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        int w = MeasureSpec.getSize(widthMeasureSpec);
+//        int h = MeasureSpec.getSize(heightMeasureSpec);
+//        setMeasuredDimension(w, h);
+//    }
 }

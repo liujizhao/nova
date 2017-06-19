@@ -52,7 +52,7 @@
             <ImageView
                 android:id="@+id/des_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="12dp"
                 android:src="@drawable/learn_more_txt_1"
                 android:layout_below="@+id/view_1"
                 android:layout_marginTop="10dp"/>
@@ -85,7 +85,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/first_frame"
         android:visibility="visible"/>
-
 
     <include layout="@layout/toolsbar" />
 

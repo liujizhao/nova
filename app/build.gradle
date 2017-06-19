@@ -24,4 +24,5 @@ dependencies {
     compile "com.android.support:design:${rootProject.ext.support}"
     compile "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
+    compile files('libs/mysdk.jar')
 }

@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ro_tools_bar"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:alpha="0.0"
             android:src="@drawable/home_logo_txt" />
 
@@ -128,10 +128,12 @@
             android:layout_height="wrap_content"
             android:background="@drawable/home_sub_menu_bg"
             android:layout_below="@+id/home_double_curl"
+            android:layout_marginTop="-30dp"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:id="@+id/home_sub_menu_layout"
+            android:alpha="0.0"
             android:visibility="gone"
             >
             <ImageView
@@ -139,15 +141,13 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/home_sub_bianjiao"
                 android:layout_weight="1"
-                android:id="@+id/home_sub_menu_biaojiao"
-                />
+                android:id="@+id/home_sub_menu_biaojiao"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/home_sub_duijiao"
                 android:layout_weight="1"
-                android:id="@+id/home_sub_menu_duijiao"
-                />
+                android:id="@+id/home_sub_menu_duijiao" />
         </LinearLayout>
 
 	<ImageView
@@ -170,7 +170,6 @@
 
     <include
         layout="@layout/nav_layout" />
-
 
 </android.support.v4.widget.DrawerLayout>
 
