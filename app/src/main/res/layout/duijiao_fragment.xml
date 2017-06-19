@@ -84,6 +84,34 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"/>
 
+        <LinearLayout
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/currentSize"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="0.00"
+                android:gravity="center"/>
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:progressDrawable="@drawable/part2_seekbar_bg"
+                android:maxHeight="2dp"
+                android:progress="0"
+                android:max="29"
+                android:thumb="@drawable/huakuai_shape"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -123,21 +151,38 @@
 
     </RelativeLayout>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/boyTouch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/touch"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/touch_animation"
+        android:visibility="gone"/>
+
+    <ImageButton
+        android:id="@+id/girlTouch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="80dp"
+        android:background="@drawable/touch_animation"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/boyTouch_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="100dp"
         android:layout_marginRight="60dp"
         android:visibility="gone"/>
 
     <ImageView
-        android:id="@+id/girlTouch"
+        android:id="@+id/girlTouch_circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/touch"
         android:layout_centerVertical="true"
         android:layout_marginLeft="80dp"
         android:visibility="gone"/>

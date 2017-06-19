@@ -1,6 +1,5 @@
 package com.exper.nova.base;
 
-import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -8,16 +7,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by Blank on 2017/6/14.
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    public View mRootView;
 
     /**
      * 绑定布局文件
@@ -41,7 +42,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         hideBottomUIMenu();
         super.onCreate(savedInstanceState);
-        setContentView(attachLayoutRes());
+        mRootView = LayoutInflater.from(this).inflate(attachLayoutRes(),null);
+        setContentView(mRootView);
         ButterKnife.bind(this);
         initViews();
         updateViews();

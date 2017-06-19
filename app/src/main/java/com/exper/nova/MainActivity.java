@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -208,6 +209,15 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         ViewGroup.LayoutParams layoutParams = mNavLayout.getLayoutParams();
         layoutParams.width = 779;
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        mRootView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(isSubMenuShown){
+                    showSubMenu();
+                }
+                return false;
+            }
+        });
     }
 
     @Override
