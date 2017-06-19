@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.exper.nova.MainActivity;
 import com.exper.nova.R;
 import com.exper.nova.base.BaseFragment;

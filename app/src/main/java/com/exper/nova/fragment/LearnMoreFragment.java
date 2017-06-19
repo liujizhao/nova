@@ -1,7 +1,6 @@
 package com.exper.nova.fragment;
 
 import android.graphics.Rect;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -17,7 +16,7 @@ import com.exper.nova.MainActivity;
 import com.exper.nova.R;
 import com.exper.nova.base.BaseFragment;
 import com.exper.nova.viewpager.ViewPagerAdapter;
-import com.exper.nova.widget.PreviewVideoView;
+import com.exper.nova.widget.TextureVideoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ import butterknife.OnClick;
 public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.videoView)
-    PreviewVideoView mVideoView;
+    TextureVideoView mVideoView;
 
     @BindView(R.id.placeholder)
     ImageView mPlaceHolder;
@@ -66,22 +65,24 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
 
     @Override
     protected void initViews() {
-        mVideoView.setVideoURI(Uri.parse(getVideoPath()));
-        mPlaceHolder.postDelayed(new Runnable() {
+        mVideoView.setDataSource(getActivity(),Uri.parse(getVideoPath()));
+
+        mVideoView.setListener(new TextureVideoView.MediaPlayerListener() {
             @Override
-            public void run() {
-                mPlaceHolder.setVisibility(View.GONE);
-                mVideoView.start();
+            public void onVideoPrepared() {
+
             }
-        },300);
-        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
             @Override
-            public void onCompletion(MediaPlayer mp) {
+            public void onVideoEnd() {
+                mVideoView.setVisibility(View.GONE);
                 mPlaceHolder.setImageResource(R.drawable.learn_more_big);
                 setAnim(mPlaceHolder);
                 pagerLayout.setVisibility(View.VISIBLE);
             }
         });
+
+        mVideoView.play();
 
         mTips = new ImageView[mImageIds.length];
         mIndicatorLayout.removeAllViews();
@@ -118,9 +119,6 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
 
     @Override
     protected void updateViews() {
-        if (!mVideoView.isPlaying()) {
-            mVideoView.start();
-        }
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setCurrentItem(mViews.size() * 100);
@@ -130,7 +128,7 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
     public void onDestroy() {
         super.onDestroy();
         if (mVideoView != null) {
-            mVideoView.suspend();
+            mVideoView.stop();
         }
     }
 
