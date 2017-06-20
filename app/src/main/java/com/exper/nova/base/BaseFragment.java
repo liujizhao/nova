@@ -73,13 +73,13 @@ public abstract class BaseFragment extends Fragment{
         }
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && isVisible() && mRootView != null && !mIsMulti) {
-            mIsMulti = true;
-            updateViews();
-        } else {
-            super.setUserVisibleHint(isVisibleToUser);
-        }
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        if (isVisibleToUser && isVisible() && mRootView != null && !mIsMulti) {
+//            mIsMulti = true;
+//            updateViews();
+//        } else {
+//            super.setUserVisibleHint(isVisibleToUser);
+//        }
+//    }
 }

@@ -23,7 +23,7 @@ public class FragmentViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public EmuiItemFragment getItem(int position) {
         return mFragmentList.get(position % mFragmentList.size());
     }
 

@@ -52,7 +52,7 @@ public class BianJiaoFragment extends BaseFragment {
                 ((MainActivity)getActivity()).replaceFragment(R.id.content_frame,new BianJiaoSeeFragment(),"see");
                 break;
             case R.id.btn_back:
-                getActivity().onBackPressed();
+                ((MainActivity)getActivity()).clearAllFragment();
                 break;
             case R.id.btn_menu:
                 ((MainActivity)getActivity()).openDrawer();

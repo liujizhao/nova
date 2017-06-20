@@ -1,6 +1,7 @@
 package com.exper.nova.fragment;
 
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.VideoView;
 
 import com.exper.nova.MainActivity;
 import com.exper.nova.R;
@@ -31,7 +33,7 @@ import butterknife.OnClick;
 public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.videoView)
-    TextureVideoView mVideoView;
+    VideoView mVideoView;
 
     @BindView(R.id.placeholder)
     ImageView mPlaceHolder;
@@ -65,24 +67,26 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
 
     @Override
     protected void initViews() {
-        mVideoView.setDataSource(getActivity(),Uri.parse(getVideoPath()));
+        mVideoView.setVideoURI(Uri.parse(getVideoPath()));
 
-        mVideoView.setListener(new TextureVideoView.MediaPlayerListener() {
+        mVideoView.postDelayed(new Runnable() {
             @Override
-            public void onVideoPrepared() {
-
+            public void run() {
+                mVideoView.start();
+                mPlaceHolder.setVisibility(View.GONE);
             }
+        },500);
 
+        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
-            public void onVideoEnd() {
-                mVideoView.setVisibility(View.GONE);
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mPlaceHolder.setVisibility(View.VISIBLE);
                 mPlaceHolder.setImageResource(R.drawable.learn_more_big);
+                mVideoView.setVisibility(View.GONE);
                 setAnim(mPlaceHolder);
                 pagerLayout.setVisibility(View.VISIBLE);
             }
         });
-
-        mVideoView.play();
 
         mTips = new ImageView[mImageIds.length];
         mIndicatorLayout.removeAllViews();
@@ -125,10 +129,10 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         if (mVideoView != null) {
-            mVideoView.stop();
+            mVideoView.suspend();
         }
     }
 
@@ -220,5 +224,4 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
         });
 
     }
-
 }

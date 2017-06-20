@@ -1,6 +1,8 @@
 package com.exper.nova.fragment;
 
 import android.net.Uri;
+import android.support.v7.view.menu.MenuView;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.exper.nova.R;
@@ -45,13 +47,11 @@ public class EmuiItemFragment extends BaseFragment {
         mHolderView.setBackgroundResource(mDrawableId);
     }
 
-    public void prepare(final boolean play){
+    public void prepare(){
         mVideoView.setListener(new TextureVideoView.MediaPlayerListener() {
             @Override
             public void onVideoPrepared() {
-                if(play) {
-                    mVideoView.play();
-                }
+
             }
 
             @Override
@@ -61,30 +61,49 @@ public class EmuiItemFragment extends BaseFragment {
         });
     }
 
-    public void startVideo(){
+    public void startVideo(boolean isVisibleToUser){
         if(mVideoView != null) {
-            mVideoView.play();
-        }
-    }
-
-    public void resetVideo(){
-        if(mVideoView != null) {
-            mVideoView.stop();
-        }
-    }
-
-    public void suspends(){
-        if(mVideoView != null) {
-            mVideoView.stop();
+            if(isVisibleToUser){
+//                prepare();
+                mVideoView.play();
+            }else{
+//                mVideoView.setState(TextureVideoView.State.PLAY);
+                mVideoView.stop();
+            }
         }
     }
 
     @Override
     protected void updateViews() {
-        prepare(false);
     }
 
     private String getVideoPath() {
         return "android.resource://" + getActivity().getPackageName() + "/" + mVideoId;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(isVisible() && getUserVisibleHint()) {
+            if (mVideoView != null) {
+//                mVideoView.setState(TextureVideoView.State.PLAY);
+                mVideoView.stop();
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mVideoView != null) {
+//            mVideoView.setState(TextureVideoView.State.PLAY);
+            mVideoView.stop();
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        startVideo(isVisibleToUser);
     }
 }

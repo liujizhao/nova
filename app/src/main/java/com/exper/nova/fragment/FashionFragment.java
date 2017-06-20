@@ -114,7 +114,7 @@ public class FashionFragment extends BaseFragment implements ViewPager.OnPageCha
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_back:
-                getActivity().onBackPressed();
+                ((MainActivity)getActivity()).clearAllFragment();
                 break;
             case R.id.btn_menu:
                 ((MainActivity)getActivity()).openDrawer();

@@ -51,15 +51,27 @@ public class BianJiaoSeeFragment extends BaseFragment{
                 if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     //当手指离开的时候
                     x2 = motionEvent.getX();
-                    if(x2 - x1 > 100 && mCurrentPosition == 1) {
-                        mCurrentPosition = 0;
-                        mBackGround.setImageResource(R.drawable.bianjiao_bg_1);
-                        mFlagView.setImageResource(R.drawable.flag_bg1);
+                    if(x2 - x1 > 100) {
+                        if(mCurrentPosition == 1) {
+                            mCurrentPosition = 0;
+                            mBackGround.setImageResource(R.drawable.bianjiao_bg_1);
+                            mFlagView.setImageResource(R.drawable.flag_bg1);
+                        }else {
+                            mCurrentPosition = 1;
+                            mBackGround.setImageResource(R.drawable.bianjiao_bg_2);
+                            mFlagView.setImageResource(R.drawable.flag_bg2);
+                        }
                         mSeekView.setProgress(0);
-                    }else if (x2 - x1 < 100 && mCurrentPosition == 0) {
-                        mCurrentPosition = 1;
-                        mBackGround.setImageResource(R.drawable.bianjiao_bg_2);
-                        mFlagView.setImageResource(R.drawable.flag_bg2);
+                    }else if (x2 - x1 < 100) {
+                        if(mCurrentPosition == 0) {
+                            mCurrentPosition = 1;
+                            mBackGround.setImageResource(R.drawable.bianjiao_bg_2);
+                            mFlagView.setImageResource(R.drawable.flag_bg2);
+                        }else{
+                            mCurrentPosition = 0;
+                            mBackGround.setImageResource(R.drawable.bianjiao_bg_1);
+                            mFlagView.setImageResource(R.drawable.flag_bg1);
+                        }
                         mSeekView.setProgress(0);
                     }
                 }

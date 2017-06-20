@@ -208,7 +208,7 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         ToastUtils.init(this);
         ViewGroup.LayoutParams layoutParams = mNavLayout.getLayoutParams();
         layoutParams.width = 779;
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+//        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mRootView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -361,6 +361,7 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
                 closeDrawer();
             }
         });
+        clearAllFragment();
         switch (view.getId()){
             case R.id.menu_item_1:
                 replaceFragment(R.id.content_frame, new HDSelfFragment(), "self");
@@ -369,7 +370,7 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
                 replaceFragment(R.id.content_frame, new BianJiaoFragment(), "bianjiao");
                 break;
             case R.id.menu_item_3:
-                replaceFragment(R.id.content_frame, new BianJiaoFragment(), "duijiao");
+                replaceFragment(R.id.content_frame, new DuiJiaoFragment(), "duijiao");
                 break;
             case R.id.menu_item_4:
                 replaceFragment(R.id.content_frame, new FashionFragment(), "fashion");

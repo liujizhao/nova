@@ -29,7 +29,6 @@ public class EmuiFragment extends BaseFragment implements ViewPager.OnPageChange
     private List<EmuiItemFragment> mFragmentList = new ArrayList<>();
     private FragmentViewPagerAdapter fragmentViewPagerAdapter;
 
-    private int mLastPosition;
     private int mCurrentPosition;
 
     @Override
@@ -39,7 +38,7 @@ public class EmuiFragment extends BaseFragment implements ViewPager.OnPageChange
 
     @Override
     protected void initViews() {
-        mFragmentList.add(new EmuiFirstItemFragment(R.drawable.emui_item_holder_1,R.raw.emui_tese1));
+        mFragmentList.add(new EmuiItemFragment(R.drawable.emui_item_holder_1,R.raw.emui_tese1));
         mFragmentList.add(new EmuiItemFragment(R.drawable.emui_item_holder_2,R.raw.emui_tese2));
         mFragmentList.add(new EmuiItemFragment(R.drawable.emui_item_holder_3,R.raw.emui_tese3));
         mFragmentList.add(new EmuiItemFragment(R.drawable.emui_item_holder_4,R.raw.emui_tese4));
@@ -51,9 +50,7 @@ public class EmuiFragment extends BaseFragment implements ViewPager.OnPageChange
     protected void updateViews() {
         mViewPager.setAdapter(fragmentViewPagerAdapter);
         mCurrentPosition = mFragmentList.size() * 100;
-        mLastPosition = mCurrentPosition;
         mViewPager.setCurrentItem(mCurrentPosition);
-//        mViewPager.setOffscreenPageLimit(2);
         mViewPager.addOnPageChangeListener(this);
     }
 
@@ -61,7 +58,7 @@ public class EmuiFragment extends BaseFragment implements ViewPager.OnPageChange
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_back:
-                getActivity().onBackPressed();
+                ((MainActivity)getActivity()).clearAllFragment();
                 break;
             case R.id.btn_menu:
                 ((MainActivity)getActivity()).openDrawer();
@@ -76,12 +73,9 @@ public class EmuiFragment extends BaseFragment implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        mLastPosition = mCurrentPosition;
         mCurrentPosition = position;
-        int last = mLastPosition % mFragmentList.size();
         int current = mCurrentPosition % mFragmentList.size();
-        mFragmentList.get(last).resetVideo();
-        mFragmentList.get(current).startVideo();
+
         if(current == 0){
             mIndicatorView.setImageResource(R.drawable.emui_t1);
         }else if(current == 1){
@@ -103,9 +97,6 @@ public class EmuiFragment extends BaseFragment implements ViewPager.OnPageChange
     @Override
     public void onDestroy() {
         super.onDestroy();
-        for (EmuiItemFragment fragment : mFragmentList){
-            fragment.suspends();
-        }
         mFragmentList.clear();
         mFragmentList = null;
     }

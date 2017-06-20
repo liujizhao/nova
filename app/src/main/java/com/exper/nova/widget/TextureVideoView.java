@@ -43,7 +43,7 @@ public class TextureVideoView extends TextureView implements TextureView.Surface
     public static final boolean LOG_ON = true;
 
     // Log tag
-    private static final String TAG = TextureVideoView.class.getName();
+    private static final String TAG = "TAG";
 
     private MediaPlayer mMediaPlayer;
 
@@ -57,6 +57,10 @@ public class TextureVideoView extends TextureView implements TextureView.Surface
 
     private ScaleType mScaleType;
     private State mState;
+
+    public void setState(State state) {
+        this.mState = state;
+    }
 
     public enum ScaleType {
         CENTER_CROP, TOP, BOTTOM
@@ -342,6 +346,7 @@ public class TextureVideoView extends TextureView implements TextureView.Surface
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
             mMediaPlayer.seekTo(0);
+            log("stop()");
         }
     }
 
@@ -368,7 +373,7 @@ public class TextureVideoView extends TextureView implements TextureView.Surface
 
     static void log(String message) {
         if (LOG_ON) {
-            Log.d(TAG, message);
+            Log.e(TAG, message);
         }
     }
 

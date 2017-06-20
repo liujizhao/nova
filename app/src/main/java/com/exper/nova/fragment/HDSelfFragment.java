@@ -131,7 +131,7 @@ public class HDSelfFragment extends BaseFragment implements ViewPager.OnPageChan
                 ((MainActivity)getActivity()).replaceFragment(R.id.content_frame,new LearnMoreFragment(),"learn_more");
                 break;
             case R.id.btn_back:
-                getActivity().onBackPressed();
+                ((MainActivity)getActivity()).clearAllFragment();
                 break;
             case R.id.btn_menu:
                 ((MainActivity)getActivity()).openDrawer();

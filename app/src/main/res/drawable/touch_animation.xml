@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:oneshot="false">
-    <item android:drawable="@drawable/touch_img" android:duration="70"></item>
-    <item android:drawable="@drawable/huakuai" android:duration="70"></item>
-    <item android:drawable="@drawable/touch_img" android:duration="70"></item>
-    <item android:drawable="@drawable/huakuai" android:duration="70"></item>
-    <item android:drawable="@drawable/touch_img" android:duration="70"></item>
-    <item android:drawable="@drawable/huakuai" android:duration="70"></item>
-    <item android:drawable="@drawable/touch_img" android:duration="70"></item>
+    <item android:drawable="@drawable/touch_01" android:duration="70" />
+    <item android:drawable="@drawable/touch_02" android:duration="70" />
+    <item android:drawable="@drawable/touch_03" android:duration="70" />
+    <item android:drawable="@drawable/touch_04" android:duration="70" />
+    <item android:drawable="@drawable/touch_05" android:duration="70" />
+    <item android:drawable="@drawable/touch_06" android:duration="70" />
+    <item android:drawable="@drawable/touch_07" android:duration="70" />
+    <item android:drawable="@drawable/touch_08" android:duration="70" />
+    <item android:drawable="@drawable/touch_09" android:duration="70" />
+    <item android:drawable="@drawable/touch_10" android:duration="70" />
+    <item android:drawable="@drawable/touch_11" android:duration="70" />
 </animation-list>
