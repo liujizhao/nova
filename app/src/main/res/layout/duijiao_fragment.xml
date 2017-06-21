@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/duijiao_video_bg"/>
 
-    <com.exper.nova.widget.TextureVideoView
+    <com.sprylab.android.widget.TextureVideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -2,6 +2,7 @@ package com.exper.nova.fragment;
 
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 import com.exper.nova.MainActivity;
 import com.exper.nova.R;
 import com.exper.nova.base.BaseFragment;
-import com.exper.nova.widget.TextureVideoView;
+import com.sprylab.android.widget.TextureVideoView;
 
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -83,15 +84,10 @@ public class DuiJiaoFragment extends BaseFragment {
 
     @Override
     protected void initViews() {
-        mVideoView.setDataSource(getActivity(), Uri.parse(getVideoPath()));
-        mVideoView.setListener(new TextureVideoView.MediaPlayerListener() {
+        mVideoView.setVideoURI( Uri.parse(getVideoPath()));
+        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
-            public void onVideoPrepared() {
-
-            }
-
-            @Override
-            public void onVideoEnd() {
+            public void onCompletion(MediaPlayer mp) {
                 mHolderView.setBackgroundResource(R.drawable.duijiao_last_frame);
                 mVideoBoard.setVisibility(View.VISIBLE);
                 mToolBar.setVisibility(View.GONE);
@@ -127,7 +123,7 @@ public class DuiJiaoFragment extends BaseFragment {
 
     @Override
     protected void updateViews() {
-        mVideoView.play();
+        mVideoView.start();
         //获取assetsManager对象
         assets = getActivity().getClassLoader();
     }
@@ -218,7 +214,7 @@ public class DuiJiaoFragment extends BaseFragment {
                 mHolderView.setBackgroundResource(R.drawable.duijiao_last_frame);
                 mPart3View.setVisibility(View.GONE);
                 mVideoView.setVisibility(View.VISIBLE);
-                mVideoView.play();
+                mVideoView.start();
                 break;
         }
     }
@@ -236,7 +232,7 @@ public class DuiJiaoFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         if(mVideoView != null){
-            mVideoView.stop();
+            mVideoView.suspend();
         }
     }
 }

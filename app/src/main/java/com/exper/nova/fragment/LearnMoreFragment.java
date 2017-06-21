@@ -18,7 +18,7 @@ import com.exper.nova.MainActivity;
 import com.exper.nova.R;
 import com.exper.nova.base.BaseFragment;
 import com.exper.nova.viewpager.ViewPagerAdapter;
-import com.exper.nova.widget.TextureVideoView;
+import com.sprylab.android.widget.TextureVideoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import butterknife.OnClick;
 public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.videoView)
-    VideoView mVideoView;
+    TextureVideoView mVideoView;
 
     @BindView(R.id.placeholder)
     ImageView mPlaceHolder;
@@ -68,15 +68,7 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
     @Override
     protected void initViews() {
         mVideoView.setVideoURI(Uri.parse(getVideoPath()));
-
-        mVideoView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mVideoView.start();
-                mPlaceHolder.setVisibility(View.GONE);
-            }
-        },500);
-
+        mVideoView.start();
         mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
@@ -126,14 +118,6 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setCurrentItem(mViews.size() * 100);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mVideoView != null) {
-            mVideoView.suspend();
-        }
     }
 
     private String getVideoPath() {
@@ -222,6 +206,30 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
                 mPlaceHolder.setVisibility(View.GONE);
             }
         });
-
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mVideoView.isPlaying()){
+            mVideoView.pause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!mVideoView.isPlaying()){
+            mVideoView.start();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mVideoView != null){
+            mVideoView.suspend();
+        }
+    }
+
 }

@@ -1,13 +1,16 @@
 package com.exper.nova.fragment;
 
+import android.annotation.SuppressLint;
+import android.graphics.PixelFormat;
+import android.media.MediaPlayer;
 import android.net.Uri;
-import android.support.v7.view.menu.MenuView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.exper.nova.R;
 import com.exper.nova.base.BaseFragment;
-import com.exper.nova.widget.TextureVideoView;
+import com.sprylab.android.widget.TextureVideoView;
 
 import butterknife.BindView;
 
@@ -30,7 +33,8 @@ public class EmuiItemFragment extends BaseFragment {
 
     }
 
-    public EmuiItemFragment(int drawableId,int videoId){
+    @SuppressLint("ValidFragment")
+    public EmuiItemFragment(int drawableId, int videoId){
         super();
         mDrawableId = drawableId;
         mVideoId = videoId;
@@ -43,32 +47,31 @@ public class EmuiItemFragment extends BaseFragment {
 
     @Override
     protected void initViews() {
-        mVideoView.setDataSource(getActivity(),Uri.parse(getVideoPath()));
+        prepare();
         mHolderView.setBackgroundResource(mDrawableId);
     }
 
     public void prepare(){
-        mVideoView.setListener(new TextureVideoView.MediaPlayerListener() {
+        mVideoView.setVideoURI(Uri.parse(getVideoPath()));
+        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
-            public void onVideoPrepared() {
-
-            }
-
-            @Override
-            public void onVideoEnd() {
-                mVideoView.play();
+            public void onCompletion(MediaPlayer mp) {
+                mVideoView.start();
             }
         });
     }
 
-    public void startVideo(boolean isVisibleToUser){
+    public void startVideo(){
         if(mVideoView != null) {
-            if(isVisibleToUser){
-//                prepare();
-                mVideoView.play();
-            }else{
-//                mVideoView.setState(TextureVideoView.State.PLAY);
-                mVideoView.stop();
+            mVideoView.start();
+            mVideoView.seekTo(0);
+        }
+    }
+
+    public void resetVideo(){
+        if(mVideoView != null) {
+            if(mVideoView.isPlaying()) {
+                mVideoView.pause();
             }
         }
     }
@@ -84,26 +87,19 @@ public class EmuiItemFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        if(isVisible() && getUserVisibleHint()) {
-            if (mVideoView != null) {
-//                mVideoView.setState(TextureVideoView.State.PLAY);
-                mVideoView.stop();
-            }
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mVideoView != null) {
-//            mVideoView.setState(TextureVideoView.State.PLAY);
-            mVideoView.stop();
-        }
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        startVideo(isVisibleToUser);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mVideoView != null){
+            mVideoView.suspend();
+        }
+    }
+
 }

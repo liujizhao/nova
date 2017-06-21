@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.exper.nova.MainActivity;
 import com.exper.nova.R;
 import com.exper.nova.base.BaseFragment;
-import com.exper.nova.widget.TextureVideoView;
+import com.sprylab.android.widget.TextureVideoView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,7 +36,7 @@ public class BianJiaoDuiBiFragment extends BaseFragment {
 
     @Override
     protected void initViews() {
-        mVideoView.setDataSource(getActivity(),Uri.parse(getVideoPath1()));
+        mVideoView.setVideoURI(Uri.parse(getVideoPath1()));
         mRootView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -51,13 +51,13 @@ public class BianJiaoDuiBiFragment extends BaseFragment {
                     if(x2 - x1 > 100 && mCurrentPosition == 1) {
                         mCurrentPosition = 0;
                         mFlagView.setImageResource(R.drawable.flag_bg1);
-                        mVideoView.setDataSource(getActivity(),Uri.parse(getVideoPath1()));
-                        mVideoView.play();
+                        mVideoView.setVideoURI(Uri.parse(getVideoPath1()));
+                        mVideoView.start();
                     }else if (x2 - x1 < 100 && mCurrentPosition == 0) {
                         mCurrentPosition = 1;
                         mFlagView.setImageResource(R.drawable.flag_bg2);
-                        mVideoView.setDataSource(getActivity(),Uri.parse(getVideoPath2()));
-                        mVideoView.play();
+                        mVideoView.setVideoURI(Uri.parse(getVideoPath2()));
+                        mVideoView.start();
                     }
                 }
                 return true;
@@ -67,7 +67,7 @@ public class BianJiaoDuiBiFragment extends BaseFragment {
 
     @Override
     protected void updateViews() {
-        mVideoView.play();
+        mVideoView.start();
     }
 
     @OnClick({R.id.btn_back,R.id.btn_menu,R.id.back_home})
@@ -89,5 +89,13 @@ public class BianJiaoDuiBiFragment extends BaseFragment {
 
     private String getVideoPath2() {
         return "android.resource://" + getActivity().getPackageName() + "/" + R.raw.guangxue2;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mVideoView != null){
+            mVideoView.suspend();
+        }
     }
 }
