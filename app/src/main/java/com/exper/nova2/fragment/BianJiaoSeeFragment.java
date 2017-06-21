@@ -1,4 +1,4 @@
-package com.exper.nova.fragment;
+package com.exper.nova2.fragment;
 
 import android.graphics.Matrix;
 import android.view.MotionEvent;
@@ -6,10 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
-import com.exper.nova.MainActivity;
-import com.exper.nova.R;
-import com.exper.nova.base.BaseFragment;
-import com.exper.nova.widget.VerticalPageSeekBar;
+import com.exper.nova2.MainActivity;
+import com.exper.nova2.base.BaseFragment;
+import com.exper.nova2.widget.VerticalPageSeekBar;
+import com.huawei.experience.nova2.R;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -18,7 +18,7 @@ import butterknife.OnClick;
  * Created by liujizhao on 2017/6/18.
  */
 
-public class BianJiaoSeeFragment extends BaseFragment{
+public class BianJiaoSeeFragment extends BaseFragment {
 
     @BindView(R.id.background)
     ImageView mBackGround;

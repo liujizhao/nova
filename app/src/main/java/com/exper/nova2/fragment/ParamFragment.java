@@ -1,9 +1,9 @@
-package com.exper.nova.fragment;
+package com.exper.nova2.fragment;
 
 import android.view.View;
 
-import com.exper.nova.R;
-import com.exper.nova.base.BaseFragment;
+import com.exper.nova2.base.BaseFragment;
+import com.huawei.experience.nova2.R;
 
 import butterknife.OnClick;
 

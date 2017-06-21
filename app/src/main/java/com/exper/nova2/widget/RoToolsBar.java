@@ -1,4 +1,4 @@
-package com.exper.nova.widget;
+package com.exper.nova2.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.exper.nova.R;
+import com.huawei.experience.nova2.R;
 
 /**
  * Created by Rory on 2017/6/15.

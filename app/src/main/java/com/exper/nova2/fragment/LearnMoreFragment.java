@@ -1,4 +1,4 @@
-package com.exper.nova.fragment;
+package com.exper.nova2.fragment;
 
 import android.graphics.Rect;
 import android.media.MediaPlayer;
@@ -12,12 +12,11 @@ import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.VideoView;
 
-import com.exper.nova.MainActivity;
-import com.exper.nova.R;
-import com.exper.nova.base.BaseFragment;
-import com.exper.nova.viewpager.ViewPagerAdapter;
+import com.exper.nova2.MainActivity;
+import com.exper.nova2.base.BaseFragment;
+import com.exper.nova2.viewpager.ViewPagerAdapter;
+import com.huawei.experience.nova2.R;
 import com.sprylab.android.widget.TextureVideoView;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.exper.nova.viewpager;
+package com.exper.nova2.viewpager;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;

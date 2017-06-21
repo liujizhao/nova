@@ -1,10 +1,12 @@
-package com.exper.nova;
+package com.exper.nova2;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.DragEvent;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +16,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.exper.nova.base.BaseActivity;
-import com.exper.nova.fragment.BianJiaoFragment;
-import com.exper.nova.fragment.DuiJiaoFragment;
-import com.exper.nova.fragment.EmuiFragment;
-import com.exper.nova.fragment.FashionFragment;
-import com.exper.nova.fragment.HDSelfFragment;
-import com.exper.nova.fragment.ParamFragment;
-import com.exper.nova.util.ToastUtils;
-import com.exper.nova.widget.RoToolsBar;
+import com.exper.nova2.base.BaseActivity;
+import com.exper.nova2.fragment.BianJiaoFragment;
+import com.exper.nova2.fragment.DuiJiaoFragment;
+import com.exper.nova2.fragment.EmuiFragment;
+import com.exper.nova2.fragment.FashionFragment;
+import com.exper.nova2.fragment.HDSelfFragment;
+import com.exper.nova2.fragment.ParamFragment;
+import com.exper.nova2.util.ToastUtils;
+import com.exper.nova2.widget.RoToolsBar;
 import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
+import com.huawei.experience.nova2.R;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -83,19 +86,20 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
     View btnLayout;
 
     private long mExitTime = 0;
+    private GestureDetector gestureDetector;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 10000:
-                    Animation animation4 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_1);
+                    Animation animation4 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.anim_1);
                     animation4.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
-                            mHandler.sendEmptyMessageDelayed(10001,200);
+                            mHandler.sendEmptyMessageDelayed(10001, 200);
                         }
 
                         @Override
@@ -111,11 +115,11 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
                     animationView4.startAnimation(animation4);
                     break;
                 case 10001:
-                    Animation animation3 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_1);
+                    Animation animation3 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.anim_1);
                     animation3.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
-                            mHandler.sendEmptyMessageDelayed(10002,200);
+                            mHandler.sendEmptyMessageDelayed(10002, 200);
                         }
 
                         @Override
@@ -131,11 +135,11 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
                     animationView3.startAnimation(animation3);
                     break;
                 case 10002:
-                    Animation animation2 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_1);
+                    Animation animation2 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.anim_1);
                     animation2.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
-                            mHandler.sendEmptyMessageDelayed(10003,100);
+                            mHandler.sendEmptyMessageDelayed(10003, 100);
                         }
 
                         @Override
@@ -151,7 +155,7 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
                     animationView2.startAnimation(animation2);
                     break;
                 case 10003:
-                    Animation animation1 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_2);
+                    Animation animation1 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.anim_2);
                     animationView1.setAlpha(1.0f);
                     animation1.setAnimationListener(new Animation.AnimationListener() {
                         @Override
@@ -161,7 +165,7 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            Animation animation12 = AnimationUtils.loadAnimation(MainActivity.this,R.anim.alpha_anim);
+                            Animation animation12 = AnimationUtils.loadAnimation(MainActivity.this, R.anim.alpha_anim);
                             selfHDBtn.setAlpha(1.0f);
                             selfHDBtn.startAnimation(animation12);
 
@@ -208,16 +212,46 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         ToastUtils.init(this);
         ViewGroup.LayoutParams layoutParams = mNavLayout.getLayoutParams();
         layoutParams.width = 779;
-//        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        mDrawerLayout.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                return false;
+            }
+        });
         mRootView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(isSubMenuShown){
+                if (isSubMenuShown) {
                     showSubMenu();
                 }
                 return false;
             }
         });
+
+        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                //判断是否是右滑
+                float offsetX = e2.getX() - e1.getX();
+                float offsetY = e2.getY() - e1.getY();
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.END) && (offsetX > 0 && offsetX > Math.abs(offsetY)) || (velocityX > 0 && velocityX > Math.abs(velocityY))) {
+                    return true;//返回true表示我们在dispatchTouchEvent中，就不把事件传递到子控件中了
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event){
+        //当向右滑动的时候，拦截事件，不传下去,通过GestureDetector辅助事件的判断
+        if(gestureDetector.onTouchEvent(event) && mDrawerLayout.isDrawerOpen(GravityCompat.END)){
+            //关闭侧边栏
+            mDrawerLayout.closeDrawer(GravityCompat.END);
+            return true;
+        }
+        return super.dispatchTouchEvent(event);
     }
 
     @Override
@@ -238,23 +272,27 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
                 splashView.setVisibility(View.GONE);
                 mHandler.sendEmptyMessage(10000);
             }
-        },3000);
+        }, 3000);
     }
 
-    @OnClick({R.id.self_hd_btn,R.id.param_btn , R.id.home_double_curl, R.id.home_fashion, R.id.home_emui,R.id.home_sub_menu_biaojiao,R.id.home_sub_menu_duijiao})
-    public void onClick(View view){
+    @OnClick({R.id.self_hd_btn, R.id.param_btn, R.id.home_double_curl, R.id.home_fashion, R.id.home_emui, R.id.home_sub_menu_biaojiao, R.id.home_sub_menu_duijiao, R.id.menu_close})
+    public void onClick(View view) {
         if (isAnimating) {
-            return ;
+            return;
         }
-        switch (view.getId()){
+        if(isSubMenuShown && view.getId() != R.id.home_sub_menu_biaojiao && view.getId() != R.id.home_sub_menu_duijiao){
+            showSubMenu();
+            return;
+        }
+        switch (view.getId()) {
             case R.id.self_hd_btn:
-                replaceFragment(R.id.content_frame, new HDSelfFragment(),"self");
+                replaceFragment(R.id.content_frame, new HDSelfFragment(), "self");
                 break;
             case R.id.param_btn:
-                replaceFragment(R.id.content_frame, new ParamFragment(),"param");
+                replaceFragment(R.id.content_frame, new ParamFragment(), "param");
                 break;
             case R.id.home_fashion:
-                replaceFragment(R.id.content_frame, new FashionFragment(),"fashion");
+                replaceFragment(R.id.content_frame, new FashionFragment(), "fashion");
                 break;
             case R.id.home_emui:
                 replaceFragment(R.id.content_frame, new EmuiFragment(), "emui");
@@ -268,6 +306,9 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
             case R.id.home_sub_menu_duijiao:
                 replaceFragment(R.id.content_frame, new DuiJiaoFragment(), "duijiao");
                 break;
+            case R.id.menu_close:
+                closeDrawer();
+                break;
         }
     }
 
@@ -275,43 +316,43 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
     boolean isAnimating = false;
 
     private void showSubMenu() {
-        if(!isSubMenuShown) {
+        if (!isSubMenuShown) {
             mSubMenuLayout.setVisibility(View.VISIBLE);
             isAnimating = true;
             ViewAnimator
                     .animate(selfHDBtn)
                     .translationY(0, 40)
-                    .alpha(1,0)
+                    .alpha(1, 0)
                     .duration(250)
                     .andAnimate(mHomeEmui)
                     .translationY(0, 40)
-                    .alpha(1,0)
+                    .alpha(1, 0)
                     .duration(250)
                     .andAnimate(mHomeFashion)
                     .translationY(0, 40)
-                    .alpha(1,0)
+                    .alpha(1, 0)
                     .duration(250)
                     .thenAnimate(mSubMenuLayout)
-                    .translationY(40,0)
-                    .alpha(0,1)
+                    .translationY(40, 0)
+                    .alpha(0, 1)
                     .duration(250)
                     .onStop(new AnimationListener.Stop() {
                         @Override
                         public void onStop() {
                             isAnimating = false;
                             selfHDBtn.setVisibility(View.INVISIBLE);
-                            selfHDBtn.setEnabled(false);
+//                            selfHDBtn.setEnabled(false);
                             mHomeEmui.setVisibility(View.INVISIBLE);
-                            mHomeEmui.setEnabled(false);
+//                            mHomeEmui.setEnabled(false);
                             mHomeFashion.setVisibility(View.INVISIBLE);
-                            mHomeFashion.setEnabled(false);
+//                            mHomeFashion.setEnabled(false);
                             mSubMenuLayout.setVisibility(View.VISIBLE);
                             mSubMenuLayout.setAlpha(1.0f);
                         }
                     })
                     .start();
             isSubMenuShown = true;
-        }else{
+        } else {
             isAnimating = true;
             ViewAnimator.animate(mSubMenuLayout)
                     .translationY(0, 40)
@@ -337,11 +378,11 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
                             mSubMenuLayout.setVisibility(View.GONE);
 
                             selfHDBtn.setVisibility(View.VISIBLE);
-                            selfHDBtn.setEnabled(true);
+//                            selfHDBtn.setEnabled(true);
                             mHomeEmui.setVisibility(View.VISIBLE);
-                            mHomeEmui.setEnabled(true);
+//                            mHomeEmui.setEnabled(true);
                             mHomeFashion.setVisibility(View.VISIBLE);
-                            mHomeFashion.setEnabled(true);
+//                            mHomeFashion.setEnabled(true);
                         }
                     })
                     .start();
@@ -350,8 +391,8 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         }
     }
 
-    @OnClick({R.id.menu_item_1,R.id.menu_item_2,R.id.menu_item_3,R.id.menu_item_4,R.id.menu_item_5,R.id.menu_close})
-    public void drawerClick(View view){
+    @OnClick({R.id.menu_item_1, R.id.menu_item_2, R.id.menu_item_3, R.id.menu_item_4, R.id.menu_item_5})
+    public void drawerClick(View view) {
         if (isAnimating) {
             return;
         }
@@ -362,7 +403,7 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
             }
         });
         clearAllFragment();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.menu_item_1:
                 replaceFragment(R.id.content_frame, new HDSelfFragment(), "self");
                 break;
@@ -390,7 +431,7 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         } else if (stackEntryCount == 0) {
             // 如果剩一个说明在主页，提示按两次退出app
             _exit();
-        }else{
+        } else {
             super.onBackPressed();
         }
     }
@@ -404,13 +445,13 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         }
     }
 
-    public void openDrawer(){
-        if(!mDrawerLayout.isDrawerOpen(GravityCompat.END))
+    public void openDrawer() {
+        if (!mDrawerLayout.isDrawerOpen(GravityCompat.END))
             mDrawerLayout.openDrawer(GravityCompat.END);
     }
 
-    public void closeDrawer(){
-        if(mDrawerLayout.isDrawerOpen(GravityCompat.END))
+    public void closeDrawer() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.END))
             mDrawerLayout.closeDrawer(GravityCompat.END);
     }
 

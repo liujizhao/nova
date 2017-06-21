@@ -1,15 +1,13 @@
-package com.exper.nova.fragment;
+package com.exper.nova2.fragment;
 
 import android.annotation.SuppressLint;
-import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
-import com.exper.nova.R;
-import com.exper.nova.base.BaseFragment;
+import com.exper.nova2.base.BaseFragment;
+import com.huawei.experience.nova2.R;
 import com.sprylab.android.widget.TextureVideoView;
 
 import butterknife.BindView;
@@ -92,6 +90,27 @@ public class EmuiItemFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    private boolean isBackground = false;
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(mVideoView.isPlaying()) {
+            mVideoView.pause();
+            isBackground = true;
+            Log.e("TAG","onStop");
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isBackground){
+            startVideo();
+            Log.e("TAG","onResume");
+        }
     }
 
     @Override

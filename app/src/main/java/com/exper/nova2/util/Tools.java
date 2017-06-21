@@ -1,4 +1,4 @@
-package com.exper.nova.util;
+package com.exper.nova2.util;
 
 import android.content.ComponentName;
 import android.content.Context;

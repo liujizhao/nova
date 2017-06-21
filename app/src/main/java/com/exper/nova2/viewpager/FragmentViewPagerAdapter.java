@@ -1,10 +1,9 @@
-package com.exper.nova.viewpager;
+package com.exper.nova2.viewpager;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.exper.nova.fragment.EmuiItemFragment;
+import com.exper.nova2.fragment.EmuiItemFragment;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.exper.nova.fragment;
+package com.exper.nova2.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -7,11 +7,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
-import com.exper.nova.MainActivity;
-import com.exper.nova.R;
-import com.exper.nova.base.BaseFragment;
-import com.exper.nova.util.ToastUtils;
-import com.exper.nova.util.Tools;
+import com.exper.nova2.MainActivity;
+import com.exper.nova2.base.BaseFragment;
+import com.exper.nova2.util.ToastUtils;
+import com.exper.nova2.util.Tools;
+import com.huawei.experience.nova2.R;
 
 import butterknife.OnClick;
 

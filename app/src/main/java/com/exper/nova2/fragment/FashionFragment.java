@@ -1,4 +1,4 @@
-package com.exper.nova.fragment;
+package com.exper.nova2.fragment;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.exper.nova.MainActivity;
-import com.exper.nova.R;
-import com.exper.nova.base.BaseFragment;
-import com.exper.nova.viewpager.ViewPagerAdapter;
+import com.exper.nova2.MainActivity;
+import com.exper.nova2.base.BaseFragment;
+import com.exper.nova2.viewpager.ViewPagerAdapter;
+import com.huawei.experience.nova2.R;
 
 import java.util.ArrayList;
 import java.util.List;

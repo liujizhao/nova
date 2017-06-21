@@ -1,4 +1,4 @@
-package com.exper.nova.widget;
+package com.exper.nova2.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

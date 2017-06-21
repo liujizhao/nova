@@ -56,7 +56,7 @@
         android:layout_height="match_parent"
         android:alpha="1.0">
 
-        <com.exper.nova.widget.RoToolsBar
+        <com.exper.nova2.widget.RoToolsBar
             android:id="@+id/ro_tools_bar"
             android:layout_width="match_parent"
             android:layout_height="48dp"

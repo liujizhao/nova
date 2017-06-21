@@ -1,13 +1,13 @@
-package com.exper.nova.fragment;
+package com.exper.nova2.fragment;
 
 import android.net.Uri;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.exper.nova.MainActivity;
-import com.exper.nova.R;
-import com.exper.nova.base.BaseFragment;
+import com.exper.nova2.MainActivity;
+import com.exper.nova2.base.BaseFragment;
+import com.huawei.experience.nova2.R;
 import com.sprylab.android.widget.TextureVideoView;
 
 import butterknife.BindView;
