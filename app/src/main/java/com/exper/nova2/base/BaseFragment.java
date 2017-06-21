@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment{
 
-    protected Context mContext;
+    protected BaseActivity mContext;
     //缓存Fragment view
     public View mRootView;
     private boolean mIsMulti = false;
@@ -40,12 +40,12 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getActivity();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mContext = (BaseActivity) getActivity();
     }
 
     @Nullable
@@ -73,7 +73,13 @@ public abstract class BaseFragment extends Fragment{
         }
     }
 
-//    @Override
+    @Override
+    public void onResume() {
+        mContext.hideBottomUIMenu();
+        super.onResume();
+    }
+
+    //    @Override
 //    public void setUserVisibleHint(boolean isVisibleToUser) {
 //        if (isVisibleToUser && isVisible() && mRootView != null && !mIsMulti) {
 //            mIsMulti = true;

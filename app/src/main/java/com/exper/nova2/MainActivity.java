@@ -424,6 +424,10 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
 
     @Override
     public void onBackPressed() {
+        if(isSubMenuShown){
+            showSubMenu();
+            return;
+        }
         // 获取堆栈里有几个
         final int stackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
         if (mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
