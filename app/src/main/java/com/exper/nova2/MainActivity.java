@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -15,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.exper.nova2.base.BaseActivity;
 import com.exper.nova2.fragment.BianJiaoFragment;
@@ -35,7 +37,7 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickListener {
 
     @BindView(R.id.splash_img)
-    ImageView splashView;
+    View splashView;
 
     @BindView(R.id.self_hd_btn)
     ImageView selfHDBtn;
@@ -87,6 +89,9 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
 
     private long mExitTime = 0;
     private GestureDetector gestureDetector;
+
+    @BindView(R.id.view)
+    View allView;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -264,11 +269,13 @@ public class MainActivity extends BaseActivity implements RoToolsBar.onBtnClickL
         mRoToolsBar.setLogoImageVisible(View.VISIBLE);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void updateViews() {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                allView.setVisibility(View.VISIBLE);
                 splashView.setVisibility(View.GONE);
                 mHandler.sendEmptyMessage(10000);
             }
