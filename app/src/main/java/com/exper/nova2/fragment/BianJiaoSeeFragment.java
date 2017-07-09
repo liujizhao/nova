@@ -33,6 +33,10 @@ public class BianJiaoSeeFragment extends BaseFragment {
     private float x2 = 0;
     private int mCurrentPosition;
 
+    public BianJiaoSeeFragment(){
+
+    }
+
     @Override
     protected int attachLayoutRes() {
         return R.layout.bianjiao_see_fragment;

@@ -14,6 +14,10 @@ import butterknife.OnClick;
 
 public class ParamFragment extends BaseFragment {
 
+    public ParamFragment(){
+
+    }
+
     @Override
     protected int attachLayoutRes() {
         return R.layout.param_fragment;

@@ -49,6 +49,10 @@ public class HDSelfFragment extends BaseFragment implements ViewPager.OnPageChan
 
     private ViewPagerHandlerUtils mHandlerUtils;
 
+    public HDSelfFragment(){
+
+    }
+
     @Override
     protected int attachLayoutRes() {
         return R.layout.self_hd_fragment;

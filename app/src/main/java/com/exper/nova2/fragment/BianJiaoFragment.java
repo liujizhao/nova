@@ -36,6 +36,10 @@ public class BianJiaoFragment extends BaseFragment {
 
     }
 
+    public BianJiaoFragment(){
+
+    }
+
     @OnClick({R.id.to_camera,R.id.to_see,R.id.btn_back,R.id.btn_menu})
     public void onClick(View view){
         switch (view.getId()){

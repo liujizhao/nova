@@ -77,6 +77,10 @@ public class DuiJiaoFragment extends BaseFragment {
             "00010.png","00011.png","00012.png","00013.png","00014.png","00015.png","00016.png","00017.png","00018.png","00019.png",
             "00020.png","00021.png","00022.png","00023.png","00024.png","00025.png","00026.png","00027.png","00028.png","00029.png"};
 
+    public DuiJiaoFragment(){
+
+    }
+
     @Override
     protected int attachLayoutRes() {
         return R.layout.duijiao_fragment;
@@ -233,6 +237,22 @@ public class DuiJiaoFragment extends BaseFragment {
         super.onDestroy();
         if(mVideoView != null){
             mVideoView.suspend();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mVideoView != null && mVideoView.isPlaying()){
+            mVideoView.pause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mVideoView != null && mVideoView.getVisibility() == View.VISIBLE && !mVideoView.isPlaying()){
+            mVideoView.start();
         }
     }
 }

@@ -36,6 +36,10 @@ public class FashionFragment extends BaseFragment implements ViewPager.OnPageCha
     };
     private ImageView[] mTips;
 
+    public FashionFragment(){
+
+    }
+
     @Override
     protected int attachLayoutRes() {
         return R.layout.fashion_fragment;

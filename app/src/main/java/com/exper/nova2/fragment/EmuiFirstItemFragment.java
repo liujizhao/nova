@@ -9,6 +9,10 @@ import android.annotation.SuppressLint;
 @SuppressLint("ValidFragment")
 public class EmuiFirstItemFragment extends EmuiItemFragment {
 
+    public EmuiFirstItemFragment(){
+
+    }
+
     @SuppressLint("ValidFragment")
     public EmuiFirstItemFragment(int drawableId, int videoId){
         super(drawableId, videoId);

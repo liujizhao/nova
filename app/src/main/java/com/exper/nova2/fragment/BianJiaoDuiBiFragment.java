@@ -29,6 +29,10 @@ public class BianJiaoDuiBiFragment extends BaseFragment {
     private float x2 = 0;
     private int mCurrentPosition;
 
+    public BianJiaoDuiBiFragment(){
+
+    }
+
     @Override
     protected int attachLayoutRes() {
         return R.layout.bianjiao_duibi_fragment;
@@ -96,6 +100,22 @@ public class BianJiaoDuiBiFragment extends BaseFragment {
         super.onDestroy();
         if(mVideoView != null){
             mVideoView.suspend();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mVideoView != null && mVideoView.isPlaying()){
+            mVideoView.pause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mVideoView != null && !mVideoView.isPlaying()){
+            mVideoView.start();
         }
     }
 }

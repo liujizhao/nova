@@ -32,6 +32,10 @@ public class EmuiFragment extends BaseFragment implements ViewPager.OnPageChange
     private int mCurrentPosition;
     private int mLastPosition;
 
+    public EmuiFragment(){
+
+    }
+
     @Override
     protected int attachLayoutRes() {
         return R.layout.emui_fragment;

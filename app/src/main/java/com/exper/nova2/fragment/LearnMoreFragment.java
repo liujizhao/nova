@@ -59,6 +59,10 @@ public class LearnMoreFragment extends BaseFragment implements ViewPager.OnPageC
     };
     private ImageView[] mTips;
 
+    public LearnMoreFragment(){
+
+    }
+
     @Override
     protected int attachLayoutRes() {
         return R.layout.learn_more_fragment;

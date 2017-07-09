@@ -85,6 +85,11 @@ public class EmuiItemFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
+        if(mVideoView.isPlaying()) {
+            mVideoView.pause();
+            isBackground = true;
+            Log.e("TAG","onStop");
+        }
     }
 
     @Override
@@ -97,11 +102,6 @@ public class EmuiItemFragment extends BaseFragment {
     @Override
     public void onStop() {
         super.onStop();
-        if(mVideoView.isPlaying()) {
-            mVideoView.pause();
-            isBackground = true;
-            Log.e("TAG","onStop");
-        }
     }
 
     @Override
